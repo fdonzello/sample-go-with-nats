@@ -14,15 +14,23 @@ func main() {
 	}
 
 	var name string
-	var surname string
+	var lastname string
 
 	fmt.Print("user name: ")
 	fmt.Scanf("%s", &name)
 
 	fmt.Print("user lastname: ")
-	fmt.Scanf("%s", &surname)
+	fmt.Scanf("%s", &lastname)
 
-	if err := nc.Publish("users.create", fmt.Sprintf("%s %s", name, surname)); err != nil {
+	if len(name) == 0 {
+		log.Fatal("empty name provided")
+	}
+
+	if len(lastname) == 0 {
+		log.Fatal("empty lastname provided")
+	}
+
+	if err := nc.Publish("users.create", fmt.Sprintf("%s %s", name, lastname)); err != nil {
 		log.Fatal(err)
 	}
 
